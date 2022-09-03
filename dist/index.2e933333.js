@@ -27059,20 +27059,78 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "App", ()=>App);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _photo = require("./components/Photo");
+var _photoDefault = parcelHelpers.interopDefault(_photo);
 function App() {
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
-        children: "Hello world!"
-    }, void 0, false, {
-        fileName: "client/src/App.js",
-        lineNumber: 2,
-        columnNumber: 10
-    }, this);
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _photoDefault.default), {}, void 0, false, {
+            fileName: "client/src/App.js",
+            lineNumber: 6,
+            columnNumber: 7
+        }, this)
+    }, void 0, false);
 }
 _c = App;
 var _c;
 $RefreshReg$(_c, "App");
 
   $parcel$ReactRefreshHelpers$a93b.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","./components/Photo":"43TW7","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"43TW7":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$a0eb = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$a0eb.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+const Photo = ()=>{
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("form", {
+            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                class: "form-group",
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
+                        for: "exampleFormControlFile1",
+                        children: "Example file input"
+                    }, void 0, false, {
+                        fileName: "client/src/components/Photo.js",
+                        lineNumber: 7,
+                        columnNumber: 11
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
+                        type: "file",
+                        class: "form-control-file",
+                        id: "exampleFormControlFile1"
+                    }, void 0, false, {
+                        fileName: "client/src/components/Photo.js",
+                        lineNumber: 8,
+                        columnNumber: 11
+                    }, undefined)
+                ]
+            }, void 0, true, {
+                fileName: "client/src/components/Photo.js",
+                lineNumber: 6,
+                columnNumber: 9
+            }, undefined)
+        }, void 0, false, {
+            fileName: "client/src/components/Photo.js",
+            lineNumber: 5,
+            columnNumber: 7
+        }, undefined)
+    }, void 0, false);
+};
+_c = Photo;
+exports.default = Photo;
+var _c;
+$RefreshReg$(_c, "Photo");
+
+  $parcel$ReactRefreshHelpers$a0eb.postlude(module);
 } finally {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
