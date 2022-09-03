@@ -17,28 +17,24 @@ const Photo = () => {
 
         reader.onload = function (e) {
           document.getElementById('the-picture').setAttribute('src', e.target.result);
+          console.log(e.target.result)
         };
 
         reader.readAsDataURL(input.files[0]);
+        console.log(input.files[0])
       }
     }
   })
 
   return (
     <>
-      <style type="text/css">
-        {`
-        .photo-upload:hover {
-          cursor:pointer;
-        }`}
-      </style>
       <h1 className="w-full text-center">
         Welcome to Plantr!
       </h1>
       <h3 className="w-full text-center">
         choose an image to get started!
       </h3>
-      <Container className="photo-upload d-flex justify-content-center">
+      <Container className="d-flex justify-content-center">
         <input
           role="button"
           id="myImage"

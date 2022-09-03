@@ -27105,30 +27105,21 @@ const Photo = ()=>{
                 var reader = new FileReader();
                 reader.onload = function(e) {
                     document.getElementById("the-picture").setAttribute("src", e.target.result);
+                    console.log(e.target.result);
                 };
                 reader.readAsDataURL(input.files[0]);
+                console.log(input.files[0]);
             }
         };
     });
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
         children: [
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("style", {
-                type: "text/css",
-                children: `
-        .photo-upload:hover {
-          cursor:pointer;
-        }`
-            }, void 0, false, {
-                fileName: "client/src/components/Photo.js",
-                lineNumber: 29,
-                columnNumber: 7
-            }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
                 className: "w-full text-center",
                 children: "Welcome to Plantr!"
             }, void 0, false, {
                 fileName: "client/src/components/Photo.js",
-                lineNumber: 35,
+                lineNumber: 31,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
@@ -27136,11 +27127,11 @@ const Photo = ()=>{
                 children: "choose an image to get started!"
             }, void 0, false, {
                 fileName: "client/src/components/Photo.js",
-                lineNumber: 38,
+                lineNumber: 34,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Container), {
-                className: "photo-upload d-flex justify-content-center",
+                className: "d-flex justify-content-center",
                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
                     role: "button",
                     id: "myImage",
@@ -27149,12 +27140,12 @@ const Photo = ()=>{
                     accept: ".png,.jpg,.jpeg,.raw,.eps,.gif,.tif,.tiff,.bmp"
                 }, void 0, false, {
                     fileName: "client/src/components/Photo.js",
-                    lineNumber: 42,
+                    lineNumber: 38,
                     columnNumber: 9
                 }, undefined)
             }, void 0, false, {
                 fileName: "client/src/components/Photo.js",
-                lineNumber: 41,
+                lineNumber: 37,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Container), {
@@ -27163,12 +27154,12 @@ const Photo = ()=>{
                     width: "full"
                 }, void 0, false, {
                     fileName: "client/src/components/Photo.js",
-                    lineNumber: 51,
+                    lineNumber: 47,
                     columnNumber: 9
                 }, undefined)
             }, void 0, false, {
                 fileName: "client/src/components/Photo.js",
-                lineNumber: 50,
+                lineNumber: 46,
                 columnNumber: 7
             }, undefined)
         ]
