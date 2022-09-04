@@ -1,1 +1,1 @@
-console.log(encodeURIComponent("https://"))
+console.log(encodeURIComponent("https://firebasestorage.googleapis.com/v0/b/jason-ren.appspot.com/o/images%2Fplant?alt=media&token=ab0a9c8c-6f42-4d41-b1bf-8e29e2ce69ef"))
