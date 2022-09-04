@@ -1,7 +1,7 @@
 import { SearchResult } from './SearchResult';
 import { MoreInfo } from './MoreInfo';
 import { Container, Dropdown, Button } from 'react-bootstrap'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import { RiPlantLine } from "react-icons/ri"
 import { initializeApp } from 'firebase/app'
@@ -34,12 +34,7 @@ const Photo = () => {
   const [modalShow, setModalShow] = useState(false)
   const [scientificName, setScientificName] = useState('')
   const [commonName, setCommonName] = useState('')
-
-
-  const radios = [
-    { name: 'Upload URL', value: '1' },
-    { name: 'Upload Local Image', value: '2' }
-  ];
+  const [image, setImage] = useState()
 
   useEffect(() => {
     const uploadPictureButton = document.querySelector(".photo-upload")
@@ -60,7 +55,6 @@ const Photo = () => {
         };
 
         await getDownloadURL(storageRef).then((url) => {
-          console.log(url)
           setURL(url)
         }).catch((error) => {
           console.log(error)
@@ -70,6 +64,12 @@ const Photo = () => {
       }
     }
   })
+
+  const inputRef = useRef(null)
+
+  const resetFileInput = () => {
+    inputRef.current.value = null;
+  }
 
   return (
     <>
@@ -83,18 +83,47 @@ const Photo = () => {
           }
           .photo-display {
             border-radius: 5px;
+          }
+          .required {
+            color: #CD5C5C;
+            font-weight: 700;
+            font-size: 2rem;
+          }
+          .plant-icon {
+            color: green;
+            font-weight: 1000;
+            font-size: 3rem;
           }`}
       </style>
-      <h1 className="w-full text-center">
-        Welcome to Plantr!
-      </h1>
-      <h3 className="w-full text-center">
-        choose an image to get started!
-      </h3>
+      <Container className='d-flex justify-content-center mt-4'>
+        <h1 className="w-full">
+          Welcome to Plantr!
+        </h1>
+        <RiPlantLine className='plant-icon'></RiPlantLine>
+      </Container>
+      <h4 className="w-full text-center mt-5">
+        Upload an image to get started!
+      </h4>
       <Container className='d-flex justify-content-center'>
         <ButtonGroup aria-label="Basic example">
-          <Button type='radio' variant={mode === 'url' ? "success" : "outline-success"} onClick={() => setMode('url')}>Upload URL</Button>
-          <Button type='radio' variant={mode === 'url' ? "outline-success" : "success"} onClick={() => setMode('local')}>Upload Local Image</Button>
+          <Button type='radio' variant={mode === 'url' ? "success" : "outline-success"}
+            onClick={() => {
+              setMode('url')
+              setURL('')
+              setIdentify(false)
+              setOrgan('Select Plant Organ')
+            }}>
+            Upload URL
+          </Button>
+          <Button type='radio' variant={mode === 'url' ? "outline-success" : "success"}
+            onClick={() => {
+              setMode('local')
+              setURL('')
+              setIdentify(false)
+              setOrgan('Select Plant Organ')
+            }}>
+            Upload Local Image
+          </Button>
         </ButtonGroup>
       </Container>
       <Container className='d-flex justify-content-center'>
@@ -104,23 +133,39 @@ const Photo = () => {
       {
         mode === 'local' && (
           <>
-            <Container className="d-flex ">
-              <input
-                role="button"
-                id="myImage"
-                className="w-fit border border-5 place-self-center mx-auto photo-upload"
-                type="file"
-                accept=".png,.jpg,.jpeg"></input>
+            <Container className="d-flex justify-content-center mt-4">
+              <div className='mr-5'>
+                <input
+                  role="button"
+                  id="myImage"
+                  className="w-fit border border-5 place-self-center mx-1 photo-upload"
+                  type="file"
+                  accept=".png,.jpg,.jpeg"
+                  ref={inputRef}></input>
+                <Button variant='secondary' size='sm'
+                  onClick={() => {
+                    setURL('')
+                    setOrgan('Select Plant Organ')
+                    setIdentify(false)
+                    document.getElementById('the-picture').setAttribute('src', '')
+                    resetFileInput()
+                  }}
+                  disabled={url === ''}
+                  style={url === '' ? { cursor: 'not-allowed' } : {}}>
+                  clear
+                </Button>
+              </div>
+              <p className='required'>*</p>
               <Dropdown>
                 <Dropdown.Toggle variant="success" id="dropdown-basic">
                   {organ}
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                  <Dropdown.Item href="#/action-1" onClick={() => setOrgan('leaf')}>Leaf</Dropdown.Item>
-                  <Dropdown.Item href="#/action-2" onClick={() => setOrgan('flower')}>Flower</Dropdown.Item>
-                  <Dropdown.Item href="#/action-3" onClick={() => setOrgan('fruit')}>Fruit</Dropdown.Item>
-                  <Dropdown.Item href="#/action-4" onClick={() => setOrgan('bark')}>Bark</Dropdown.Item>
-                  <Dropdown.Item href="#/action-5" onClick={() => setOrgan('auto')}>Auto</Dropdown.Item>
+                  <Dropdown.Item href="#/action-1" onClick={() => setOrgan('leaf')}>leaf</Dropdown.Item>
+                  <Dropdown.Item href="#/action-2" onClick={() => setOrgan('flower')}>flower</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3" onClick={() => setOrgan('fruit')}>fruit</Dropdown.Item>
+                  <Dropdown.Item href="#/action-4" onClick={() => setOrgan('bark')}>bark</Dropdown.Item>
+                  <Dropdown.Item href="#/action-5" onClick={() => setOrgan('auto')}>auto</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             </Container>
@@ -133,23 +178,27 @@ const Photo = () => {
       {
         mode === 'url' && (
           <>
-            <Container className="d-flex justify-content-center mt-3">
+            <Container className="d-flex justify-content-center mt-4">
               <div className='mr-5'>
                 <input
                   id="myImage"
-                  className="w-fit border border-5 mx-auto photo-url"
+                  className="w-fit border border-5 mx-1 photo-url"
                   type="url"
                   placeholder='Image URL:'
                   onChange={e => setURL(e.target.value)}
                   value={url}></input>
-                <Button variant='secondary' size='sm' onClick={() => {
-                  setURL('')
-                  setOrgan('Select Plant Organ')
-                  setIdentify(false)
-                }}>
+                <Button variant='secondary' size='sm'
+                  onClick={() => {
+                    setURL('')
+                    setOrgan('Select Plant Organ')
+                    setIdentify(false)
+                  }}
+                  disabled={url === ''}
+                  style={url === '' ? { cursor: 'not-allowed' } : {}}>
                   clear
                 </Button>
               </div>
+              <p className='required'>*</p>
               <Dropdown>
                 <Dropdown.Toggle variant="success" id="dropdown-basic">
                   {organ}
@@ -169,22 +218,23 @@ const Photo = () => {
           </>
         )
       }
-      <Container className="d-flex justify-content-center">
+      <Container className="d-flex justify-content-center mt-4 mb-5">
         <Button variant='success'
           disabled={organ === 'Select Plant Organ'}
           style={organ === 'Select Plant Organ' ? { cursor: 'not-allowed' } : {}}
-          onClick={() => setIdentify(true)}>
-          Identify
+          onClick={() => setIdentify(true)}
+          size="lg">
+          Identify!
         </Button>
       </Container>
       {
         identify && (
-          <SearchResult image={url} organ={organ} setModalShow={setModalShow} setCommonName={setCommonName} setScientificName={setScientificName}></SearchResult>
+          <SearchResult image={url} organ={organ} setImage={setImage} setModalShow={setModalShow} setCommonName={setCommonName} setScientificName={setScientificName}></SearchResult>
         )
       }
       {
         modalShow && (
-          <MoreInfo commonName={commonName} scientificName={scientificName} modalShow={modalShow} setModalShow={setModalShow}></MoreInfo>
+          <MoreInfo commonName={commonName} image={image} scientificName={scientificName} modalShow={modalShow} setModalShow={setModalShow}></MoreInfo>
         )
       }
     </>

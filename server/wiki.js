@@ -20,9 +20,6 @@ const wikiSentiment = async (name) => {
 
   // get wiki page text
   const rawText = await getWikiText(name);
-  // const cleanedText = await cleanWikiText(rawText);
-  console.log('got text');
-  console.log(typeof rawText)
 
   // sentiment analysis
   const language = require('@google-cloud/language');
@@ -39,9 +36,6 @@ const wikiSentiment = async (name) => {
   const [result] = await client.analyzeSentiment({ document });
 
   const sentiment = result.documentSentiment;
-  console.log('Document sentiment:');
-  console.log(`  Score: ${sentiment.score}`);
-  console.log(`  Magnitude: ${sentiment.magnitude}`);
 
   return { sentiment, rawText };
 }

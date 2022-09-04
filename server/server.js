@@ -39,10 +39,8 @@ app.post('/local/identifyPlant/:image', async (req, res) => {
   axios.post('https://my-api.plantnet.org/v2/identify/all?api-key=2b108jwkqQofJmQ1nbXABTe', form, {
     headers: form.getHeaders()
   }).then(response => {
-    console.log(response.data)
     res.send(response.data)
   }).catch(err => {
-    console.log(err)
     res.send(err)
   })
 })
@@ -58,7 +56,6 @@ app.post('/remote/identifyPlant/:image/:organ', async (req, res) => {
 
   axios.get(`https://my-api.plantnet.org/v2/identify/all?api-key=2b108jwkqQofJmQ1nbXABTe&images=${image}&organs=${organ}&include-related-images=true&no-reject=false&lang=en`
   ).then((response) => {
-    console.log(response.data)
     res.send(response.data)
   }).catch(err => {
     res.send(err)
@@ -69,11 +66,8 @@ app.post('/remote/identifyPlant/:image/:organ', async (req, res) => {
 app.get('/wiki', async (req, res) => {
   try {
     const { sentiment, rawText } = await wikiSentiment(req.query.name);
-    console.log(sentiment);
-    console.log(rawText.length)
     return res.json({ sentiment, rawText });
   } catch (e) {
-    console.error(e);
     res.send(e)
   }
 })
