@@ -1,5 +1,4 @@
 const wiki = require('wikijs').default;
-const { goog_key } = require('../client/src/components/config')
 
 const getWikiText = async (title) => {
   const page = await wiki().page(title);
@@ -29,7 +28,7 @@ const wikiSentiment = async (name) => {
   const language = require('@google-cloud/language');
   const client = new language.LanguageServiceClient({
     projectId: 'sealapps22',
-    keyFilename: '../../../../downloads/sealapps22-3e7d3dc43ddb.json'
+    keyFilename: '../../../../desktop/sealapps22-3e7d3dc43ddb.json'
   });
 
   const document = {

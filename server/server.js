@@ -3,12 +3,15 @@ const express = require('express')
 const path = require('path')
 const app = express()
 const axios = require('axios')
+const cors = require('cors')
 const fs = require('fs')
 const FormData = require('form-data');
 const { wikiSentiment } = require('./wiki');
 
 app.use(express.json())
 app.use(express.static('dist'))
+
+app.use(cors())
 
 // set favicon
 app.get('/favicon.ico', (req, res) => {
@@ -20,7 +23,7 @@ app.use((err, req, res, next) => {
   res.status(500).send(`Something broke! Reason: ${err.message}`)
 })
 
-app.post('/local/identifyFlower/:image', async (req, res) => {
+app.post('/local/identifyPlant/:image', async (req, res) => {
   const { params } = req
 
   // image must be a string path
@@ -44,7 +47,7 @@ app.post('/local/identifyFlower/:image', async (req, res) => {
   })
 })
 
-app.post('/remote/identifyFlower/:image/:organ', async (req, res) => {
+app.post('/remote/identifyPlant/:image/:organ', async (req, res) => {
   const { params } = req
 
   // image can be a regular url
@@ -71,6 +74,7 @@ app.get('/wiki', async (req, res) => {
     return res.json({ sentiment, rawText });
   } catch (e) {
     console.error(e);
+    res.send(e)
   }
 })
 
